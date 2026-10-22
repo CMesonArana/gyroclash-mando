@@ -7,7 +7,8 @@
     <meta name="theme-color" content="#171a21">
     <title>GyroClash · Mando</title>
     <!-- Cargador del mando por Internet (quick 261022-cp3): la página de Pages solo conecta; la app la da el anfitrión
-         (src/loader.ts). Mismo aspecto que #loading de la app (style.css), sin fuentes ni imágenes. -->
+         (src/loader.ts). Mismo aspecto que #loading de la app (style.css), sin fuentes ni imágenes. Sin invitación
+         o tras un fallo, «Escanear QR» abre la cámara aquí mismo; el lector se descarga solo al pulsarlo (quick 261023-0a2). -->
     <style id="loader-style">
       #gyroclash-loader {
         position: fixed; inset: 0; display: grid; align-content: center; justify-items: center; gap: 14px;
@@ -21,9 +22,11 @@
       #gyroclash-loader progress::-moz-progress-bar { background: #f6d98f; border-radius: 999px; }
       #gyroclash-loader p { margin: 0; max-width: 34ch; font-size: 14px; color: #a9bccb; }
       #gyroclash-loader button { min-height: 44px; padding: 0 24px; border: 0; border-radius: 999px; font: 800 16px/1 system-ui, sans-serif; color: #1d1406; background: linear-gradient(180deg, #f6d98f, #d9a948 55%, #a8792a); }
+      #gyroclash-loader #loader-scan { color: #f6d98f; background: transparent; border: 2px solid #f6d98f; }
+      #gyroclash-loader video { width: min(78vw, 320px, 48vh); aspect-ratio: 1; object-fit: cover; border-radius: 16px; background: #000; }
       #gyroclash-loader [hidden] { display: none; }
     </style>
-    <script type="module" crossorigin src="./assets/loader-oQ1qHEOY.js"></script>
+    <script type="module" crossorigin src="./assets/loader-ChoZZCbx.js"></script>
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="apple-touch-icon" href="./apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -34,9 +37,11 @@
   <body>
     <main id="gyroclash-loader">
       <h1>GyroClash</h1>
+      <video id="loader-video" playsinline muted hidden aria-hidden="true"></video>
       <progress max="1" aria-label="Progreso de la descarga"></progress>
       <p role="status" aria-live="polite">Conectando con el juego…</p>
-      <button type="button" hidden>Reintentar</button>
+      <button id="loader-retry" type="button" hidden>Reintentar</button>
+      <button id="loader-scan" type="button" hidden>Escanear QR</button>
     </main>
   </body>
 </html>
